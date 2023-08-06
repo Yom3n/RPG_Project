@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField] private Transform target;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +17,6 @@ public class Mover : MonoBehaviour
         {
             MoveToCursor();
         }
-
     }
 
     private void MoveToCursor()
