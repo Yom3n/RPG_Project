@@ -17,6 +17,17 @@ public class Mover : MonoBehaviour
         {
             MoveToCursor();
         }
+
+        UpdateAnimator();
+    }
+
+    private void UpdateAnimator()
+    {
+        Vector3 globalVelocity = GetComponent<NavMeshAgent>().velocity;
+        // Converts global velocity to local
+        Vector3 localVelocity = transform.InverseTransformDirection(globalVelocity);
+        float speed = localVelocity.z;
+        GetComponent<Animator>().SetFloat("forwardSpeed", speed);
     }
 
     private void MoveToCursor()
