@@ -5,9 +5,15 @@ using UnityEngine.AI;
 
 public class Mover : MonoBehaviour
 {
+    private NavMeshAgent _navMeshAgent;
+
+    private Animator _animator;
+
     // Start is called before the first frame update
     void Start()
     {
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -23,11 +29,11 @@ public class Mover : MonoBehaviour
 
     private void UpdateAnimator()
     {
-        Vector3 globalVelocity = GetComponent<NavMeshAgent>().velocity;
+        Vector3 globalVelocity = _navMeshAgent.velocity;
         // Converts global velocity to local
         Vector3 localVelocity = transform.InverseTransformDirection(globalVelocity);
         float speed = localVelocity.z;
-        GetComponent<Animator>().SetFloat("forwardSpeed", speed);
+        _animator.SetFloat("forwardSpeed", speed);
     }
 
     private void MoveToCursor()
@@ -38,7 +44,7 @@ public class Mover : MonoBehaviour
         bool hasHit = Physics.Raycast(ray: ray, hitInfo: out hit);
         if (hasHit)
         {
-            GetComponent<NavMeshAgent>().SetDestination(hit.point);
+            _navMeshAgent.SetDestination(hit.point);
         }
     }
 }
