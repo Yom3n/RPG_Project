@@ -3,36 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Mover : MonoBehaviour
+
+namespace RPG.Movement
 {
-    private NavMeshAgent _navMeshAgent;
-
-    private Animator _animator;
-
-    // Start is called before the first frame update
-    void Start()
+    public class Mover : MonoBehaviour
     {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        _animator = GetComponent<Animator>();
-    }
+        private NavMeshAgent _navMeshAgent;
 
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateAnimator();
-    }
+        private Animator _animator;
 
-    private void UpdateAnimator()
-    {
-        Vector3 globalVelocity = _navMeshAgent.velocity;
-        // Converts global velocity to local
-        Vector3 localVelocity = transform.InverseTransformDirection(globalVelocity);
-        float speed = localVelocity.z;
-        _animator.SetFloat("forwardSpeed", speed);
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _animator = GetComponent<Animator>();
+        }
 
-    public void MoveTo(Vector3 target)
-    {
-        _navMeshAgent.SetDestination(target);
+        // Update is called once per frame
+        void Update()
+        {
+            UpdateAnimator();
+        }
+
+        private void UpdateAnimator()
+        {
+            Vector3 globalVelocity = _navMeshAgent.velocity;
+            // Converts global velocity to local
+            Vector3 localVelocity = transform.InverseTransformDirection(globalVelocity);
+            float speed = localVelocity.z;
+            _animator.SetFloat("forwardSpeed", speed);
+        }
+
+        public void MoveTo(Vector3 target)
+        {
+            _navMeshAgent.SetDestination(target);
+        }
     }
 }
