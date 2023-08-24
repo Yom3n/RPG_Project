@@ -9,9 +9,9 @@ namespace RPG.Combat
         {
         }
 
-        public void Attack(GameObject obj)
+        public void Attack(CombatTarget target)
         {
-            print(obj.name);
+            print(target.name);
         }
     }
 }
