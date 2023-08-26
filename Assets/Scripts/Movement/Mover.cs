@@ -1,22 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using RPG.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour, IAction
     {
         private NavMeshAgent _navMeshAgent;
 
         private Animator _animator;
+
+        private ActionScheduler _actionScheduler;
 
         // Start is called before the first frame update
         void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
+            _actionScheduler = GetComponent<ActionScheduler>();
         }
 
         // Update is called once per frame
@@ -34,9 +38,31 @@ namespace RPG.Movement
             _animator.SetFloat("forwardSpeed", speed);
         }
 
-        public void MoveTo(Vector3 target)
+        /// <summary>
+        /// MoveTo is called for example by Fighter every frame
+        /// StartMoveAction is called wen you start move, and Fighter action can be canceled
+        /// </summary>
+        /// <param name="destination"></param>
+        public void StartMoveToAction(Vector3 destination)
         {
-            _navMeshAgent.SetDestination(target);
+            _actionScheduler.StartAction(this);
+            MoveTo(destination);
+        }
+
+        public void MoveTo(Vector3 destination)
+        {
+            _navMeshAgent.isStopped = false;
+            _navMeshAgent.SetDestination(destination);
+        }
+
+        public void StopMove()
+        {
+            _navMeshAgent.isStopped = true;
+        }
+
+        public void Cancel()
+        {
+            StopMove();
         }
     }
 }

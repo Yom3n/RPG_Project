@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using RPG.Combat;
+using RPG.Core;
 using RPG.Movement;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace RPG.Control
         {
             mover = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
+
         }
 
         // Update is called once per frame
@@ -59,7 +61,7 @@ namespace RPG.Control
             if (!hasHit) return false;
             if (Input.GetMouseButton(0))
             {
-                mover.MoveTo(hit.point);
+                mover.StartMoveToAction(hit.point);
             }
 
             return true;
