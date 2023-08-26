@@ -55,14 +55,9 @@ namespace RPG.Movement
             _navMeshAgent.SetDestination(destination);
         }
 
-        public void StopMove()
-        {
-            _navMeshAgent.isStopped = true;
-        }
-
         public void Cancel()
         {
-            StopMove();
+            _navMeshAgent.isStopped = true;
         }
     }
 }

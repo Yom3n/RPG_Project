@@ -25,7 +25,7 @@ namespace RPG.Combat
             if (_target == null) return;
             if (isTargetInRange())
             {
-                mover.StopMove();
+                mover.Cancel();
             }
             else
 
