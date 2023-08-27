@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using RPG.Core;
 using RPG.Movement;
 using UnityEngine;
@@ -8,37 +9,24 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {
-        [SerializeField] float WeaponRange = 1.0f;
+        [FormerlySerializedAs("WeaponRange")] [SerializeField]
+        float weaponRange = 1f;
+
+        [SerializeField] private float timeBetweenAttacks = 1f;
+
         private Mover mover;
+
+        private float _timeSinceLastAttack;
 
         private CombatTarget _target;
         private ActionScheduler _actionScheduler;
 
-        private void Start()
+        public bool IsTargetInRange()
         {
-            mover = GetComponent<Mover>();
-            _actionScheduler = GetComponent<ActionScheduler>();
-        }
-
-        private void Update()
-        {
-            if (_target == null) return;
-            if (isTargetInRange())
-            {
-                mover.Cancel();
-                GetComponent<Animator>().SetTrigger("attack");
-            }
-            else
-            {
-                mover.MoveTo(_target.transform.position);
-            }
-        }
-
-        public bool isTargetInRange()
-        {
+            if (_target == null) return false;
             Vector3 targetPosition = _target.transform.position;
             float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-            return distanceToTarget <= WeaponRange;
+            return distanceToTarget <= weaponRange;
         }
 
         public void Attack(CombatTarget target)
@@ -50,6 +38,44 @@ namespace RPG.Combat
         public void Cancel()
         {
             _target = null;
+        }
+
+        private void Start()
+        {
+            _timeSinceLastAttack = timeBetweenAttacks;
+            mover = GetComponent<Mover>();
+            _actionScheduler = GetComponent<ActionScheduler>();
+        }
+
+        private void Update()
+        {
+            _timeSinceLastAttack += Time.deltaTime;
+            print(_timeSinceLastAttack);
+            if (_target == null) return;
+            if (IsTargetInRange())
+            {
+                mover.Cancel();
+                AttackBehaviour();
+            }
+            else
+            {
+                mover.MoveTo(_target.transform.position);
+            }
+        }
+
+        void AttackBehaviour()
+        {
+            if (timeBetweenAttacks <= _timeSinceLastAttack)
+            {
+                GetComponent<Animator>().SetTrigger("attack");
+                _timeSinceLastAttack = 0;
+            }
+        }
+
+
+        /// Animation event! 
+        private void Hit()
+        {
         }
     }
 }
