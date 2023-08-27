@@ -26,9 +26,9 @@ namespace RPG.Combat
             if (isTargetInRange())
             {
                 mover.Cancel();
+                GetComponent<Animator>().SetTrigger("attack");
             }
             else
-
             {
                 mover.MoveTo(_target.transform.position);
             }
