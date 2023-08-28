@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Combat
+namespace Combat
 {
     public class CombatTarget : MonoBehaviour
     {

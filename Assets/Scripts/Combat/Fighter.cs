@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
-using RPG.Core;
-using RPG.Movement;
+using Core;
+using Movement;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace RPG.Combat
+namespace Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {

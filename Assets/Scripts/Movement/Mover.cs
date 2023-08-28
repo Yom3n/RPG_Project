@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using RPG.Core;
+using Core;
 using UnityEngine;
 using UnityEngine.AI;
 
 
-namespace RPG.Movement
+namespace Movement
 {
     public class Mover : MonoBehaviour, IAction
     {
