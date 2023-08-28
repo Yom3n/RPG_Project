@@ -1630,8 +1630,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7648318796863249147, guid: 9c85660e346184045aeae502591eb689, type: 3}
-      propertyPath: WeaponReachDistance
-      value: 2
+      propertyPath: timeBetweenAttacks
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7972324989388641052, guid: 9c85660e346184045aeae502591eb689, type: 3}
       propertyPath: m_Name
