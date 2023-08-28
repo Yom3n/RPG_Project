@@ -5,15 +5,15 @@ namespace Combat
 {
     public class Health : MonoBehaviour
     {
-        [SerializeField] public int maxHealth = 10;
-        [SerializeField] private int currentHealth;
+        [SerializeField] public float maxHealth = 10f;
+        [SerializeField] private float currentHealth;
 
         private void Start()
         {
             currentHealth = maxHealth;
         }
 
-        public void Damage(int damage)
+        public void TageDamage(float damage)
         {
             var updatedHealth = currentHealth - damage;
             currentHealth = Mathf.Clamp(updatedHealth - damage, 0, maxHealth);
