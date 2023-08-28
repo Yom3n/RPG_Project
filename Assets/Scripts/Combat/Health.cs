@@ -13,7 +13,7 @@ namespace Combat
             currentHealth = maxHealth;
         }
 
-        public void TageDamage(float damage)
+        public void TakeDamage(float damage)
         {
             var updatedHealth = currentHealth - damage;
             currentHealth = Mathf.Clamp(updatedHealth - damage, 0, maxHealth);

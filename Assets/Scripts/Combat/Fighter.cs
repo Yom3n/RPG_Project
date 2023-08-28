@@ -10,6 +10,7 @@ namespace Combat
     public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] private float weaponRange = 1f;
+        [SerializeField] private float weaponDamage = 3f;
 
         [SerializeField] private float timeBetweenAttacks = 1f;
 
@@ -65,6 +66,7 @@ namespace Combat
         {
             if (timeBetweenAttacks <= _timeSinceLastAttack)
             {
+                //This will trigger Hit() event 
                 GetComponent<Animator>().SetTrigger("attack");
                 _timeSinceLastAttack = 0;
             }
@@ -74,7 +76,7 @@ namespace Combat
         /// Animation event! 
         private void Hit()
         {
-            _target.GetComponent<Health>().TageDamage(1f);
+            _target.GetComponent<Health>().TakeDamage(weaponDamage);
         }
     }
 }
