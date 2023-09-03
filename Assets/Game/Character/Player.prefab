@@ -51,6 +51,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6624490238113352281, guid: a3b3d6e685f9efd4ca8c4d5849254f09, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7648318796863249147, guid: a3b3d6e685f9efd4ca8c4d5849254f09, type: 3}
       propertyPath: timeBetweenAttacks
       value: 1

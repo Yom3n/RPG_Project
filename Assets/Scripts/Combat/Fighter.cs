@@ -76,7 +76,7 @@ namespace Combat
         /// Animation event! 
         private void Hit()
         {
-            _target.GetComponent<Health>().TakeDamage(weaponDamage);
+             _target.GetComponent<Health>().TakeDamage(weaponDamage);
         }
     }
 }
