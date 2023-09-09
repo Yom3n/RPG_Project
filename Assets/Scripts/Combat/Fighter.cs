@@ -18,8 +18,9 @@ namespace Combat
         private float _timeSinceLastAttack;
 
         private Mover _mover;
-        private CombatTarget _target;
+        private Health _target;
         private ActionScheduler _actionScheduler;
+        private Animator _animator;
 
         public bool IsTargetInRange()
         {
@@ -32,11 +33,12 @@ namespace Combat
         public void Attack(CombatTarget target)
         {
             _actionScheduler.StartAction(this);
-            _target = target;
+            _target = target.GetComponent<Health>();
         }
 
         public void Cancel()
         {
+            _animator.SetTrigger("stopAttack");
             _target = null;
         }
 
@@ -45,12 +47,14 @@ namespace Combat
             _timeSinceLastAttack = timeBetweenAttacks;
             _mover = GetComponent<Mover>();
             _actionScheduler = GetComponent<ActionScheduler>();
+            _animator = GetComponent<Animator>();
         }
 
         private void Update()
         {
             _timeSinceLastAttack += Time.deltaTime;
             if (_target == null) return;
+            if (_target.IsDead()) return;
             if (IsTargetInRange())
             {
                 _mover.Cancel();
@@ -58,16 +62,17 @@ namespace Combat
             }
             else
             {
-                _mover.MoveTo(_target.transform.position);
+                _mover.MoveTo(GetTargetPosition());
             }
         }
 
-        void AttackBehaviour()
+
+        private void AttackBehaviour()
         {
             if (timeBetweenAttacks <= _timeSinceLastAttack)
             {
                 //This will trigger Hit() event 
-                GetComponent<Animator>().SetTrigger("attack");
+                _animator.SetTrigger("attack");
                 _timeSinceLastAttack = 0;
             }
         }
@@ -76,7 +81,13 @@ namespace Combat
         /// Animation event! 
         private void Hit()
         {
-             _target.GetComponent<Health>().TakeDamage(weaponDamage);
+            if (_target == null) return;
+            _target.TakeDamage(weaponDamage);
+        }
+
+        private Vector3 GetTargetPosition()
+        {
+            return _target.transform.position;
         }
     }
 }
