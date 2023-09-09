@@ -5,7 +5,7 @@ namespace Combat
 {
     public class Health : MonoBehaviour
     {
-        [SerializeField] private float maxHealth = 10f;
+        [SerializeField] public float maxHealth = 10f;
         [SerializeField] private float currentHealth;
 
         private void Start()

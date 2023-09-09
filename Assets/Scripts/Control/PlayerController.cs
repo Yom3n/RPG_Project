@@ -18,7 +18,6 @@ namespace Control
         {
             mover = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
-
         }
 
         // Update is called once per frame
@@ -37,7 +36,7 @@ namespace Control
             foreach (RaycastHit hit in hits)
             {
                 var target = hit.transform.GetComponent<CombatTarget>();
-                if (target == null) continue;
+                if (!fighter.IsTargetValid(target)) continue;
                 if (Input.GetMouseButtonDown(0))
                 {
                     fighter.Attack(target);

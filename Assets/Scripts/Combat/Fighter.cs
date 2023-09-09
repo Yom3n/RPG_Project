@@ -22,6 +22,11 @@ namespace Combat
         private ActionScheduler _actionScheduler;
         private Animator _animator;
 
+        public bool IsTargetValid(CombatTarget combatTarget)
+        {
+            return combatTarget != null && combatTarget.GetComponent<Health>().IsAlive();
+        }
+
         public bool IsTargetInRange()
         {
             if (_target == null) return false;
@@ -38,8 +43,14 @@ namespace Combat
 
         public void Cancel()
         {
-            _animator.SetTrigger("stopAttack");
+            StopAttack();
             _target = null;
+        }
+
+        private void StopAttack()
+        {
+            _animator.SetTrigger("stopAttack");
+            _animator.ResetTrigger("attack");
         }
 
         private void Start()
@@ -69,12 +80,19 @@ namespace Combat
 
         private void AttackBehaviour()
         {
+            transform.LookAt(_target.transform);
             if (timeBetweenAttacks <= _timeSinceLastAttack)
             {
-                //This will trigger Hit() event 
-                _animator.SetTrigger("attack");
+                TriggerAttack();
                 _timeSinceLastAttack = 0;
             }
+        }
+
+        private void TriggerAttack()
+        {
+            _animator.ResetTrigger("stopAttack");
+            //This will trigger Hit() event 
+            _animator.SetTrigger("attack");
         }
 
 
