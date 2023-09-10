@@ -22,7 +22,7 @@ namespace Combat
         private ActionScheduler _actionScheduler;
         private Animator _animator;
 
-        public bool IsTargetValid(CombatTarget combatTarget)
+        public bool IsTargetValid(GameObject combatTarget)
         {
             return combatTarget != null && combatTarget.GetComponent<Health>().IsAlive();
         }
@@ -35,7 +35,7 @@ namespace Combat
             return distanceToTarget <= weaponRange;
         }
 
-        public void Attack(CombatTarget target)
+        public void Attack(GameObject target)
         {
             _actionScheduler.StartAction(this);
             _target = target.GetComponent<Health>();

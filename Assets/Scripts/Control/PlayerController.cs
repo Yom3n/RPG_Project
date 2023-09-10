@@ -30,16 +30,15 @@ namespace Control
 
         private bool InteractWithCombat()
         {
-            Camera camera = Camera.main;
             RaycastHit[] hits;
             hits = Physics.RaycastAll(ray: GetMouseRay());
             foreach (RaycastHit hit in hits)
             {
                 var target = hit.transform.GetComponent<CombatTarget>();
-                if (!fighter.IsTargetValid(target)) continue;
+                if (target == null || !fighter.IsTargetValid(target.gameObject)) continue;
                 if (Input.GetMouseButtonDown(0))
                 {
-                    fighter.Attack(target);
+                    fighter.Attack(target.gameObject);
                 }
 
                 return true;

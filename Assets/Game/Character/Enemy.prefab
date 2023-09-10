@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 352563771, guid: a3b3d6e685f9efd4ca8c4d5849254f09, type: 3}
+      propertyPath: m_Speed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1683811078608053847, guid: a3b3d6e685f9efd4ca8c4d5849254f09, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -72,6 +76,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7972324989388641052, guid: a3b3d6e685f9efd4ca8c4d5849254f09, type: 3}
   m_PrefabInstance: {fileID: 4193042017480005303}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6075906507360457975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6094441398370829739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 910255fe249e4352ab1cbcaa1743009a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseDistance: 5
 --- !u!114 &6714373942860832463
 MonoBehaviour:
   m_ObjectHideFlags: 0
