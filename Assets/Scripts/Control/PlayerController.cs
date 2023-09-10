@@ -10,19 +10,22 @@ namespace Control
 {
     public class PlayerController : MonoBehaviour
     {
-        private Mover mover;
-        private Fighter fighter;
+        private Mover _mover;
+        private Fighter _fighter;
+        private Health _health;
 
         // Start is called before the first frame update
         void Start()
         {
-            mover = GetComponent<Mover>();
-            fighter = GetComponent<Fighter>();
+            _mover = GetComponent<Mover>();
+            _fighter = GetComponent<Fighter>();
+            _health = GetComponent<Health>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (_health.IsDead()) return;
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
             print("Nothing to do");
@@ -35,10 +38,10 @@ namespace Control
             foreach (RaycastHit hit in hits)
             {
                 var target = hit.transform.GetComponent<CombatTarget>();
-                if (target == null || !fighter.IsTargetValid(target.gameObject)) continue;
+                if (target == null || !_fighter.IsTargetValid(target.gameObject)) continue;
                 if (Input.GetMouseButtonDown(0))
                 {
-                    fighter.Attack(target.gameObject);
+                    _fighter.Attack(target.gameObject);
                 }
 
                 return true;
@@ -59,7 +62,7 @@ namespace Control
             if (!hasHit) return false;
             if (Input.GetMouseButton(0))
             {
-                mover.StartMoveToAction(hit.point);
+                _mover.StartMoveToAction(hit.point);
             }
 
             return true;

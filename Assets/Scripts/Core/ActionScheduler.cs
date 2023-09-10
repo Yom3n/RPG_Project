@@ -6,6 +6,8 @@ namespace Core
     {
         private IAction _currentAction;
 
+
+
         public void StartAction(IAction action)
         {
             if (_currentAction == null)
@@ -19,6 +21,11 @@ namespace Core
                 _currentAction.Cancel();
                 _currentAction = action;
             }
+        }
+        
+        public void CancelCurrent()
+        {
+            StartAction(null);
         }
     }
 }

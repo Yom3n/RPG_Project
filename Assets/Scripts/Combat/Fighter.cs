@@ -15,12 +15,19 @@ namespace Combat
         [SerializeField] private float timeBetweenAttacks = 1f;
 
 
-        private float _timeSinceLastAttack;
+        private float _timeSinceLastAttack = Mathf.Infinity;
 
         private Mover _mover;
         private Health _target;
         private ActionScheduler _actionScheduler;
         private Animator _animator;
+        
+        private void Start()
+        {
+            _mover = GetComponent<Mover>();
+            _actionScheduler = GetComponent<ActionScheduler>();
+            _animator = GetComponent<Animator>();
+        }
 
         public bool IsTargetValid(GameObject combatTarget)
         {
@@ -53,13 +60,7 @@ namespace Combat
             _animator.ResetTrigger("attack");
         }
 
-        private void Start()
-        {
-            _timeSinceLastAttack = timeBetweenAttacks;
-            _mover = GetComponent<Mover>();
-            _actionScheduler = GetComponent<ActionScheduler>();
-            _animator = GetComponent<Animator>();
-        }
+
 
         private void Update()
         {

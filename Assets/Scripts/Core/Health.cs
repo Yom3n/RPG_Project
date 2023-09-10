@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Combat
+namespace Core
 {
     public class Health : MonoBehaviour
     {
@@ -32,6 +32,7 @@ namespace Combat
             if (IsDead())
             {
                 GetComponent<Animator>().SetTrigger("die");
+                GetComponent<ActionScheduler>().CancelCurrent();
             }
         }
     }

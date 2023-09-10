@@ -1,5 +1,6 @@
 using System;
 using Combat;
+using Core;
 using UnityEngine;
 
 namespace Control
@@ -9,15 +10,19 @@ namespace Control
         [SerializeField] private float chaseDistance = 5f;
         private GameObject _player;
         private Fighter _fighter;
+        private Health _health;
 
         private void Start()
         {
             _player = GameObject.FindWithTag("Player");
             _fighter = GetComponent<Fighter>();
+            _health = GetComponent<Health>();
         }
 
         private void Update()
         {
+            if (_health.IsDead()) return;
+            
             if (IsInAttackRange() && _fighter.IsTargetValid(_player))
             {
                 _fighter.Attack(_player);
