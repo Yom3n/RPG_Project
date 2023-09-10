@@ -22,7 +22,7 @@ namespace Control
         private void Update()
         {
             if (_health.IsDead()) return;
-            
+
             if (IsInAttackRange() && _fighter.IsTargetValid(_player))
             {
                 _fighter.Attack(_player);
@@ -37,6 +37,13 @@ namespace Control
         {
             var distancetoPlayer = Vector3.Distance(transform.position, _player.transform.position);
             return distancetoPlayer < chaseDistance;
+        }
+        
+        //Called by unity. Don't delete!  Draw only when object is selected in scene
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, chaseDistance);
         }
     }
 }

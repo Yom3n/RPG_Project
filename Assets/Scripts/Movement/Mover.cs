@@ -12,8 +12,9 @@ namespace Movement
         private NavMeshAgent _navMeshAgent;
 
         private Animator _animator;
-
         private ActionScheduler _actionScheduler;
+
+        private Health _health;
 
         // Start is called before the first frame update
         void Start()
@@ -21,11 +22,18 @@ namespace Movement
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
             _actionScheduler = GetComponent<ActionScheduler>();
+            _health = GetComponent<Health>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (_health.IsDead())
+            {
+                _navMeshAgent.enabled = false;
+                return;
+            }
+
             UpdateAnimator();
         }
 
